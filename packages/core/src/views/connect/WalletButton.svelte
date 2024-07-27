@@ -38,8 +38,8 @@
     flex-flow: column;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem;
-    width: 5rem;
+    padding: 0.3rem;
+    width: 4rem;
   }
 
   .name {
@@ -49,6 +49,7 @@
     max-width: 5rem;
     max-height: 2rem;
     overflow: hidden;
+    font-weight: 600;
   }
 
   .status-icon {
@@ -76,7 +77,7 @@
       flex: 1;
       flex-flow: row nowrap;
       gap: 1rem;
-      padding: 1rem;
+      padding: 0.5rem;
     }
 
     button.connected {
@@ -121,11 +122,11 @@
         background="transparent"
       />
       <div class="name">{label}</div>
-      {#if connected}
-        <div class="status-icon">
-          <SuccessStatusIcon size={20} />
-        </div>
-      {/if}
+      <!--{#if connected}-->
+      <!--  <div class="status-icon">-->
+      <!--    <SuccessStatusIcon size={20} />-->
+      <!--  </div>-->
+      <!--{/if}-->
     </div>
   </button>
 </div>

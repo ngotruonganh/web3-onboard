@@ -82,10 +82,13 @@
   }
 
   .modal {
-    overflow-y: auto;
-    background: var(--onboard-modal-background, white);
-    color: var(--onboard-modal-color, initial);
+      overflow-y: auto;
+      background: var(--onboard-modal-background, white);
+      color: var(--onboard-modal-color, initial);
+      border: 1px solid;
+      border-image: linear-gradient(131.27deg, rgba(49, 49, 49, 0.6) 1.68%, rgba(103, 103, 103, 0.2) 99.02%) 1;
   }
+
 
   .width-100 {
     width: 100%;

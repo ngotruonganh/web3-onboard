@@ -4,7 +4,7 @@ import type {
   ConnectOptions,
   DisconnectOptions,
   WalletState
-} from '@web3-onboard/core'
+} from 'compass-defi-web3-core'
 import type { WalletInit } from '@web3-onboard/common'
 import { useWeb3Onboard } from '../context.js'
 import { useAppState } from './useAppState.js'

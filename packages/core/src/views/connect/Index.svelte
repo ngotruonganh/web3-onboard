@@ -408,8 +408,6 @@
         })
       })
     }
-
-    setTimeout(() => connectWallet$.next({ inProgress: false }), 1500)
   }
 
   modalStep$.pipe(takeUntil(onDestroy$)).subscribe(step => {
@@ -486,22 +484,25 @@
     width: var(--onboard-connect-content-width, 100%);
   }
 
+  .small-content {
+      width: 433px;
+  }
+
   .header {
     display: flex;
-    padding: 1rem;
-    border-bottom: 1px solid transparent;
-    background: var(--onboard-connect-header-background);
+      padding: 2rem 2.5rem 1rem;
+      background: var(--onboard-connect-header-background);
     color: var(--onboard-connect-header-color);
-    border-color: var(--border-color);
   }
 
   .header-heading {
+    font-weight: 600;
     line-height: 1rem;
   }
 
   .button-container {
-    right: 0.5rem;
-    top: 0.5rem;
+    right: 1.5rem;
+    top: 1.5rem;
   }
 
   .mobile-header {
@@ -583,8 +584,7 @@
       {#if connect.showSidebar}
         <Sidebar step={$modalStep$} />
       {/if}
-
-      <div class="content flex flex-column">
+        <div class={`${$modalStep$ === 'connectingWallet' || $modalStep$ === 'connectedWallet' ? 'small-content' : 'content'} flex flex-column`}>
         {#if windowWidth <= MOBILE_WINDOW_WIDTH}
           <div class="mobile-header">
             <div class="icon-container">
@@ -633,7 +633,7 @@
                   wallet: selectedWallet && selectedWallet.label
                 }
               })}
-              {$modalStep$ === 'selectingWallet' ? `(${availableWallets})` : ''}
+              <!--{$modalStep$ === 'selectingWallet' ? `(${availableWallets})` : ''}-->
             </div>
           </div>
         {/if}

@@ -14,6 +14,7 @@
     border-radius: 2rem;
     cursor: pointer;
     color: var(--onboard-close-button-color, inherit);
+    border: 0.09375rem solid var(--onboard-close-button-color);
   }
 
   .close-button:hover::before {
@@ -35,8 +36,8 @@
 
    .svg-box {
     position: absolute;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1.2rem;
+    width: 1.2rem;
     opacity: 0.6;
     transition: 300ms ease-in-out opacity;
   }

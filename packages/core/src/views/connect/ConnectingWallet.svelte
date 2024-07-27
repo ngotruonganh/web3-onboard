@@ -27,7 +27,7 @@
 
   .connecting-container {
     width: 100%;
-    padding: var(--onboard-spacing-4, var(--spacing-4));
+    padding: 10px;
     transition: background-color 100ms ease-in-out,
       border-color 100ms ease-in-out;
     border-radius: 24px;
@@ -43,8 +43,12 @@
   }
 
   .text {
-    line-height: 16px;
+      font-size: 24px;
+    line-height: 24px;
+      font-weight: 400;
+      color: #F1F1F1;
     margin-bottom: var(--onboard-spacing-5, var(--spacing-5));
+      text-align: center;
   }
 
   .text.text-rejected {
@@ -53,8 +57,10 @@
   }
 
   .subtext {
-    font-size: var(--onboard-font-size-7, var(--font-size-7));
+      text-align: center;
+    font-size: 1rem;
     line-height: 16px;
+      margin: 1rem 0;
   }
 
   .rejected-cta {
@@ -67,6 +73,34 @@
 
   .ml {
     margin-left: var(--onboard-spacing-4, var(--spacing-4));
+  }
+
+  .loading {
+   margin: 2rem 0;
+  }
+
+  .loader {
+      width: 15px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      animation: l5 2s infinite linear;
+      text-align: center;
+      margin: 3rem 0;
+  }
+
+  @keyframes l5 {
+      0% {
+          box-shadow: 20px 0 #212121, -20px 0 #D9D9D9;
+          background: #212121
+      }
+      50% {
+          box-shadow: 20px 0 #212121, -20px 0 #212121;
+          background: #D9D9D9
+      }
+      100% {
+          box-shadow: 20px 0 #D9D9D9, -20px 0 #212121;
+          background: #212121
+      }
   }
 
   @media all and (max-width: 520px) {
@@ -94,35 +128,14 @@
 
 <div class="container flex flex-column items-center">
   <div
-    class="connecting-container flex justify-between items-center"
+    class="flex justify-between items-center"
     class:warning={connectionRejected || previousConnectionRequest}
   >
     <div class="flex">
-      <div class="flex justify-center relative wallet-badges">
-        <WalletAppBadge
-          size={40}
-          padding={8}
-          icon={($appMetadata$ && $appMetadata$.icon) || questionIcon}
-          border={connectionRejected || previousConnectionRequest
-            ? 'yellow'
-            : 'blue'}
-          background="lightGray"
-        />
-
-        <div class="relative" style="right: 0.5rem;">
-          <WalletAppBadge
-            size={40}
-            padding={8}
-            border={connectionRejected || previousConnectionRequest
-              ? 'yellow'
-              : 'blue'}
-            background="white"
-            icon={selectedWallet.icon}
-          />
-        </div>
-      </div>
-
-      <div class="flex flex-column justify-center ml connecting-wallet-info">
+      <div class="flex flex-column justify-center connecting-wallet-info">
+          <div class="loading flex justify-center">
+            <div class="loader"></div>
+          </div>
         <div class="text" class:text-rejected={connectionRejected}>
           {$_(
             `connect.connectingWallet.${
@@ -160,14 +173,14 @@
     </div>
   </div>
 
-  <button
-    on:click={() => {
-      deselectWallet(selectedWallet.label)
-      setStep('selectingWallet')
-    }}
-    class="onboard-button-primary absolute"
-    >{$_('connect.connectingWallet.primaryButton', {
-      default: en.connect.connectingWallet.primaryButton
-    })}</button
-  >
+<!--  <button-->
+<!--    on:click={() => {-->
+<!--      deselectWallet(selectedWallet.label)-->
+<!--      setStep('selectingWallet')-->
+<!--    }}-->
+<!--    class="onboard-button-primary absolute"-->
+<!--    >{$_('connect.connectingWallet.primaryButton', {-->
+<!--      default: en.connect.connectingWallet.primaryButton-->
+<!--    })}</button-->
+<!--  >-->
 </div>

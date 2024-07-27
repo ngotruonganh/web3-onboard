@@ -9,7 +9,7 @@
   export let size: number // px
   export let icon: Promise<string> | string // svg string or url string
   export let loading = false
-  export let padding = size / 6
+  export let padding = 8
   export let color = 'black'
 
   export let border:
@@ -45,7 +45,7 @@
   }
 
   .border-custom {
-    border: 1px solid var(--border-color);
+    border: 0px solid var(--border-color);
   }
 
   .border-yellow {
@@ -57,7 +57,7 @@
   }
 
   .border-green {
-    border: 1px solid var(--onboard-success-500, var(--success-500));
+    border: 0px solid var(--onboard-success-500, var(--success-500));
   }
 
   .border-dark-green {

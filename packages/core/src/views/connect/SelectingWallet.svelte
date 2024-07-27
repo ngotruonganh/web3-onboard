@@ -27,7 +27,7 @@
 <style>
   .wallets-container {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     overflow-x: scroll;
     overflow-y: hidden;
     padding: 0.75rem 0.5rem;
@@ -51,12 +51,17 @@
     flex: 0 0 100%;
     margin-top: 0.75rem;
   }
+  .term {
+      color: #FFFFFF80;
+      text-align: left;
+      padding: 0.5rem 0;
+  }
 
   @media all and (min-width: 768px) {
     .wallets-container {
       display: grid;
       grid-template-columns: repeat(var(--onboard-wallet-columns, 2), 1fr);
-      padding: 1rem;
+      padding: 1.5rem 2.5rem;
       border: none;
     }
     .notice-container {
@@ -108,5 +113,6 @@
         </Warning>
       </div>
     {/if}
+      <span class="term">By connecting a wallet, you agree to the CompassDefi's Terms of Use</span>
   </div>
 </div>

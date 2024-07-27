@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useSyncExternalStore } from 'use-sync-external-store/shim/index.js'
 
-import type { AppState } from '@web3-onboard/core'
+import type { AppState } from 'compass-defi-web3-core'
 import { useWeb3Onboard } from '../context.js'
 
 export const useAppState: {

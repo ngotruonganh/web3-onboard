@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 
-import type { ConnectedChain } from '@web3-onboard/core'
+import type { ConnectedChain } from 'compass-defi-web3-core'
 import type { Chain } from '@web3-onboard/common'
 import { useAppState } from './useAppState.js'
 import { useWeb3Onboard } from '../context.js'

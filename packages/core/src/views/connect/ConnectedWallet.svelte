@@ -1,17 +1,23 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n'
-  import { WalletAppBadge, SuccessStatusIcon } from '../shared/index.js'
-  import type { WalletState } from '../../types.js'
-  import { questionIcon, successIcon } from '../../icons/index.js'
-  import en from '../../i18n/en.json'
-  import { shareReplay, startWith } from 'rxjs'
-  import { state } from '../../store/index.js'
+	import type { WalletState } from '../../types.js'
+	import { shareReplay, startWith } from 'rxjs'
+	import { state } from '../../store/index.js'
+	 import { copyWalletAddress, shortenAddress } from "../../utils";
+	import { copyIcon, explorerIcon } from "../../icons";
+	 import disconnect from "../../disconnect";
+	 import { connectWallet$ } from "../../streams";
 
-  export let selectedWallet: WalletState
+	export let selectedWallet: WalletState
+
+	 function close() {
+		 connectWallet$.next({ inProgress: false })
+	 }
 
   const appMetadata$ = state
     .select('appMetadata')
     .pipe(startWith(state.get().appMetadata), shareReplay(1))
+
+
 </script>
 
 <style>
@@ -24,60 +30,75 @@
   }
 
   .connecting-container {
-    padding: var(--onboard-spacing-4, var(--spacing-4));
+    padding: 0.625rem;
     border-radius: var(--onboard-border-radius-1, var(--border-radius-1));
-    background: var(--onboard-success-100, var(--success-100));
     border: 1px solid var(--onboard-success-600, var(--success-600));
     width: 100%;
   }
 
-  .text {
-    right: var(--onboard-spacing-5, var(--spacing-5));
+  .detail {
+      display: flex;
+      justify-content: space-between;
   }
 
-  .tick {
-    color: var(--onboard-success-700, var(--success-700));
+  .item {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: #FFFFFF80;
   }
+
+  .disconnect-field {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+  }
+
+  .connected {
+      color: #F1F1F1;
+      font-weight: 500;
+      font-size: 0.875rem;
+  }
+
+  .disconnect-wallet {
+      padding: 0.5rem 1rem;
+      border-radius: 0.625rem;
+      border: 1px solid #CA3131;
+      background: #FFE4E4;
+  }
+
 </style>
 
 <div class="container">
-  <div class="connecting-container flex justify-between items-center">
-    <div class="flex items-center">
-      <div class="flex justify-center items-end relative">
-        <WalletAppBadge
-          size={40}
-          padding={8}
-          background={$appMetadata$ && $appMetadata$.icon
-            ? 'lightBlue'
-            : 'lightGray'}
-          border="darkGreen"
-          icon={($appMetadata$ && $appMetadata$.icon) || questionIcon}
-        />
-
-        <div class="relative" style="right: 1rem; top: 4px; z-index: 1;">
-          <SuccessStatusIcon size={17} />
+    <div class="connecting-container">
+        <div class="flex">
+            <span>{shortenAddress(selectedWallet.accounts[0].address)}</span>
         </div>
-
-        <div class="relative" style="right: 1.75rem;">
-          <WalletAppBadge
-            size={40}
-            padding={8}
-            border="darkGreen"
-            background="white"
-            icon={selectedWallet.icon}
-          />
+        <div class="detail">
+            <div class="item"
+                on:click|stopPropagation={() => {
+                    copyWalletAddress(selectedWallet.accounts[0].address)
+            }}>
+                {@html copyIcon}
+                <span>Copy address</span>
+            </div>
+            <div class="item">
+                {@html explorerIcon}
+                <span>View on explorer</span>
+            </div>
         </div>
-      </div>
-      <div class="text relative">
-        {$_('connect.connectedWallet.mainText', {
-          default: en.connect.connectedWallet.mainText,
-          values: { wallet: selectedWallet.label } 
-        })}
-      </div>
     </div>
-
-    <div class="tick flex items-center" style="width: 24px;">
-      {@html successIcon}
+    <div class="disconnect-field">
+        <span class="connected">Connected with {selectedWallet.label}</span>
+        <button class="disconnect-wallet"
+                on:click|stopPropagation={() => {
+            disconnect({ label: selectedWallet.label }).then(
+                close
+            )
+          }}>
+            Disconnect
+        </button>
     </div>
-  </div>
 </div>

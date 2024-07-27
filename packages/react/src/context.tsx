@@ -1,6 +1,6 @@
 import * as React from 'react'
-import Web3Onboard from '@web3-onboard/core'
-import type { InitOptions, OnboardAPI } from '@web3-onboard/core'
+import Web3Onboard from 'compass-defi-web3-core'
+import type { InitOptions, OnboardAPI } from 'compass-defi-web3-core'
 
 const HOOK_ERROR_MESSAGE =
   'Must call the provided initialization method`init` method before using hooks.'
